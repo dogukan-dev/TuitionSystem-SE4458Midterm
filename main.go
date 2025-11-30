@@ -87,7 +87,7 @@ func main() {
 	mux.Handle("/api/v1/", http.StripPrefix("/api/v1", v1Mux))
 	mux.Handle("/api/v2/", http.StripPrefix("/api/v2", v2Mux))
 
-	port := ":8080"
+	port := ":" + os.Getenv("PORT")
 	log.Printf("Server starting on port %s", port)
 	log.Printf("Swagger documentation available at http://localhost%s/swagger.json", port)
 	log.Printf("Swagger ui available at http://localhost%s/swagger-ui", port)
