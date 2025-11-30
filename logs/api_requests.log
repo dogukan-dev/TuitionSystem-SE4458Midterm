@@ -1,2 +1,5 @@
 Logs:
 
+[2025-11-30 19:33:27] POST /login | IP: [::1]:48442 | Status: 200 | Duration: 41ms | ReqSize: 59 bytes | RespSize: 237 bytes | Headers: User-Agent, Accept, Connection, Content-Length, Cookie, Content-Type, Cache-Control, Postman-Token, Accept-Encoding | Auth: true
+[2025-11-30 19:34:21] POST /admin/logs | IP: [::1]:48442 | Status: 405 | Duration: 0ms | ReqSize: 0 bytes | RespSize: 31 bytes | Headers: Authorization, User-Agent, Postman-Token, Connection, Cookie, Accept, Cache-Control, Accept-Encoding, Content-Length | Auth: true
+[2025-11-30 19:34:25] GET /admin/logs | IP: [::1]:48442 | Status: 200 | Duration: 0ms | ReqSize: 0 bytes | RespSize: 550 bytes | Headers: Authorization, User-Agent, Postman-Token, Accept-Encoding, Cookie, Accept, Cache-Control, Connection | Auth: true

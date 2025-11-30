@@ -68,6 +68,7 @@ func main() {
 	v2Mux.HandleFunc("/banking/pay", loggingMiddleware(authMiddleware(app.PayTuitionHandler)))
 	v2Mux.HandleFunc("/admin/add-tuition", loggingMiddleware(authMiddleware(app.addTuitionHandler)))
 	v2Mux.HandleFunc("/admin/add-tuition-batch", loggingMiddleware(authMiddleware(app.addTuitionBatchHandler)))
+	v2Mux.HandleFunc("/admin/logs", loggingMiddleware(authMiddleware(app.getLogsHandler)))
 	v2Mux.HandleFunc("/admin/unpaid-status", loggingMiddleware(authMiddleware(app.unpaidTuitionStatusHandler)))
 	v2Mux.HandleFunc("/admin/add-student", loggingMiddleware(app.addStudentHandler))
 	v2Mux.HandleFunc("/register", loggingMiddleware(app.registerHandler))

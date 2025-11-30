@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"dogukan-dev/tuition/db"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strconv"
 
 	"net/http"
@@ -529,6 +531,37 @@ func (a *App) addTuitionBatchHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 
+}
+
+// Admin - Unpaid Tuition Status
+func (a *App) getLogsHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, `{"error":"Method not allowed"}`, http.StatusMethodNotAllowed)
+		return
+	}
+
+	var response []string
+
+	file, err := os.Open("logs/api_requests.log")
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Println(line)
+		response = append(response, line)
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Scanner error:", err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
 
 // Admin - Unpaid Tuition Status
