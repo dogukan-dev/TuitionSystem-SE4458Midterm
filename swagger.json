@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080",
+      "url": "https://tuitionsystem-se4458midterm.onrender.com",
       "description": "Development server"
     }
   ],
@@ -52,12 +52,12 @@
           "tuition_total": {
             "type": "number",
             "format": "float",
-            "example": 15000.00
+            "example": 15000.0
           },
           "balance": {
             "type": "number",
             "format": "float",
-            "example": 1500.00
+            "example": 1500.0
           }
         }
       },
@@ -80,10 +80,7 @@
       },
       "RegisterRequest": {
         "type": "object",
-        "required": [
-          "student_no",
-          "password"
-        ],
+        "required": ["student_no", "password"],
         "properties": {
           "student_no": {
             "type": "string",
@@ -98,10 +95,7 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": [
-          "student_no",
-          "password"
-        ],
+        "required": ["student_no", "password"],
         "properties": {
           "student_no": {
             "type": "string",
@@ -341,7 +335,7 @@
         }
       }
     },
-   "/api/v2/mobile/tuition": {
+    "/api/v2/mobile/tuition": {
       "get": {
         "summary": "Query tuition information ",
         "description": "Get tuition details for a specific student and term with authentication",
