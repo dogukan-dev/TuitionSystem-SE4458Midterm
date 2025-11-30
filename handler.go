@@ -8,7 +8,6 @@ import (
 
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -19,6 +18,11 @@ type TransactionStatus struct {
 	Status  string `json:"status"`            // e.g., "Successful", "Error", "Pending"
 	Message string `json:"message,omitempty"` // Detailed message about the result.
 }
+
+func uploadCSVHandler(w http.ResponseWriter, r *http.Request) {
+}
+
+// Handlers
 
 // Mobile /Banking - Query Tuition (No Auth, No Paging)
 func (a *App) QueryTuitionHandler(w http.ResponseWriter, r *http.Request) {
@@ -442,14 +446,28 @@ func (a *App) addTuitionBatchHandler(w http.ResponseWriter, r *http.Request) {
 		TuitionAmount float64
 	}
 
-	f, err := os.Open("data.csv")
+	file, _, err := r.FormFile("file")
 	if err != nil {
-		http.Error(w, `Cannot open csv file`, http.StatusBadRequest)
-		panic(err)
+		http.Error(w, "Error reading file: "+err.Error(), http.StatusBadRequest)
+		return
 	}
-	defer f.Close()
+	defer file.Close()
 
-	reader := csv.NewReader(f)
+	// // Save file locally (optional)
+	// out, err := os.Create("./uploads/" + header.Filename)
+	// if err != nil {
+	// 	http.Error(w, "Cannot create file: "+err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+	// defer out.Close()
+	//
+	// _, err = io.Copy(out, file)
+	// if err != nil {
+	// 	http.Error(w, "Cannot save file: "+err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+
+	reader := csv.NewReader(file)
 	records, err := reader.ReadAll()
 
 	if err != nil {
