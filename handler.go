@@ -4,9 +4,9 @@ import (
 	"dogukan-dev/tuition/db"
 	"encoding/csv"
 	"encoding/json"
+	"fmt"
 	"strconv"
 
-	"fmt"
 	"net/http"
 	"time"
 
@@ -53,7 +53,6 @@ func (a *App) QueryTuitionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if signedInStudent != student.StudentNo {
-		fmt.Printf("SignedIn: %s - Queried: %s", signedInStudent, student.StudentNo)
 		http.Error(w, `{"error":"Each student only can see their own tuitions"}`, http.StatusNotFound)
 		return
 	}

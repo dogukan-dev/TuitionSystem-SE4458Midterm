@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -11,7 +10,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// FIX: it is HTTP ONLY RIGHT NOW
 func setJWTCookie(w http.ResponseWriter, token string) {
 	http.SetCookie(w, &http.Cookie{
 		Name:     "jwt",
@@ -31,7 +29,6 @@ func HashPassword(password string) (string, error) {
 func extractToken(r *http.Request) string {
 	cookie, err := r.Cookie("jwt") // Return jwt token directly if it exists in cookie
 	if err == nil {
-		fmt.Printf("Cookie Value: %s \n\n", cookie.Value)
 		return cookie.Value
 	}
 
@@ -46,11 +43,8 @@ func extractToken(r *http.Request) string {
 	return parts[1] //Omits Authorization Token's "Bearer "
 }
 
-// Code Snippet 2: Token generation helper (for tests/examples)
-
 func GenerateJWT(studentNo string) (string, error) {
 	JwtSecret := os.Getenv("JWT_SECRET")
-	// fmt.Printf("Jwt Secret: %s", JwtSecret)
 
 	claims := &jwt.RegisteredClaims{
 		Subject:   studentNo,

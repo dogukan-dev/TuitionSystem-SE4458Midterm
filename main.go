@@ -59,10 +59,6 @@ func main() {
 	v1Mux.HandleFunc("/health", healthHandler)
 	v1Mux.HandleFunc("/register", loggingMiddleware(app.registerHandler))
 	v1Mux.HandleFunc("/login", loggingMiddleware(app.loginHandler))
-	v1Mux.HandleFunc("/mobile/tuition", loggingMiddleware(app.QueryTuitionHandler))
-	v1Mux.HandleFunc("/banking/tuition", loggingMiddleware(app.QueryTuitionHandler))
-	v1Mux.HandleFunc("/admin/add-tuition", loggingMiddleware(app.addTuitionHandler))
-	v1Mux.HandleFunc("/admin/add-student", loggingMiddleware(app.addStudentHandler))
 
 	// v2 API
 	v2Mux := http.NewServeMux()
@@ -83,6 +79,7 @@ func main() {
 	mux.HandleFunc("/swagger.json", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./swagger.json")
 	})
+
 	// Mount versions
 	mux.Handle("/api/v1/", http.StripPrefix("/api/v1", v1Mux))
 	mux.Handle("/api/v2/", http.StripPrefix("/api/v2", v2Mux))
